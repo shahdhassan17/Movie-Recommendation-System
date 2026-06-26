@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Recommendation System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#0f172a;
+            color:white;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:30px;
+        }
+
+        .container{
+
+            width:900px;
+            background:#1e293b;
+            border-radius:20px;
+            padding:30px;
+            box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+        }
+
+        h1{
+
+            text-align:center;
+            margin-bottom:25px;
+            color:#60a5fa;
+
+        }
+
+        form{
+
+            display:flex;
+            gap:10px;
+            margin-bottom:30px;
+
+        }
+
+        input{
+
+            flex:1;
+            padding:14px;
+            border:none;
+            border-radius:10px;
+            font-size:16px;
+
+        }
+
+        button{
+
+            padding:14px 25px;
+            border:none;
+            border-radius:10px;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            font-size:16px;
+            font-weight:bold;
+
+        }
+
+        button:hover{
+
+            background:#1d4ed8;
+
+        }
+
+        h2{
+
+            margin-bottom:20px;
+
+        }
+
+        .movies{
+
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:20px;
+
+        }
+
+        .movie-card{
+
+            background:#334155;
+            border-radius:15px;
+            overflow:hidden;
+            transition:.3s;
+
+        }
+
+        .movie-card:hover{
+
+            transform:translateY(-6px);
+
+        }
+
+        .movie-card img{
+
+            width:100%;
+            height:270px;
+            object-fit:cover;
+
+        }
+
+        .movie-title{
+
+            padding:15px;
+            text-align:center;
+            font-weight:bold;
+            font-size:16px;
+
+        }
+
+        .error{
+
+            text-align:center;
+            color:#ef4444;
+            font-size:18px;
+            margin-top:20px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎬 Movie Recommendation System</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="movie_name"
+            placeholder="Enter Movie Name..."
+            value="{{ movie_name }}"
+            required
+        >
+
+        <button type="submit">
+            Recommend
+        </button>
+
+    </form>
+
+    {% if recommendations %}
+
+        <h2>Recommendations for "{{ movie_name }}"</h2>
+
+        <div class="movies">
+
+            {% for movie in recommendations %}
+
+            <div class="movie-card">
+
+                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+
+                <div class="movie-title">
+
+                    {{ movie.title }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% elif movie_name %}
+
+        <div class="error">
+
+            ❌ Movie not found.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
